@@ -1,6 +1,6 @@
 {
     // ...
-    	"image": "mcr.microsoft.com/devcontainers/universal:latest",
+    "build": { "dockerfile": "Dockerfile" },
     "overrideCommand": true,
     "runArgs": [
         "--cap-add=SYS_PTRACE",
@@ -23,7 +23,6 @@
                 "ms-python.debugpy"
             ]
         }
-    },
-    "postCreateCommand": "pip install -r requirements.txt && docker compose up -d"
+    }
     // ...
   }
