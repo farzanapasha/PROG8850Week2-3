@@ -1,5 +1,5 @@
 # PROG8850Template
-environment with python, node and docker
+environment with mysql, python, node and docker
 
 TLDR;
 
