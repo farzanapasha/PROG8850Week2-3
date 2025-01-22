@@ -5,7 +5,7 @@ TLDR;
 
 ```bash
 pip install -r requirements.txt
-docker compose up -d
+sudo service start mysql
 ```
 
 To access database use adminer on port 8080 or:
