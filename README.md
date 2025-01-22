@@ -5,14 +5,13 @@ TLDR;
 
 ```bash
 pip install -r requirements.txt
-sudo service start mysql
+sudo service mysql start
 ```
 
-To access database use adminer on port 8080 or:
+To access database:
 
 ```bash
-mysql -u root -p -h 127.0.0.1
+sudo mysql -u root
 ```
 
 happy mysql!
-
