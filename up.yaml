@@ -7,7 +7,7 @@
     file:
       path: /tmp/mysqldown.txt
       state: absent
-
+  # starting mysql server
   - name: start mysql
     shell: service mysql start > /tmp/mysql.txt
     args:
