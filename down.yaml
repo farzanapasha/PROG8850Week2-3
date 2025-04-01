@@ -12,7 +12,7 @@
       echo "Created migration: $backup_filename"
     register: flyway_backup
     changed_when: flyway_backup.rc == 0
-
+  # stopping mysql server
   - name: stop mysql
     shell: service mysql stop > /tmp/mysqldown.txt
     args:
