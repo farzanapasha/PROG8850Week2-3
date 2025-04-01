@@ -1,0 +1,19 @@
+---
+- name: Start and maintain database
+  hosts: localhost
+  tasks:
+  # create a new migration from database "subscriptions"
+  - name: Create a migration
+    shell: |
+      timestamp=$(date +"%Y%m%d%H%M%S")
+      mkdir -p db-backup
+      backup_filename="V${timestamp}__backup_data.sql"
+      mysqldump -u root -ppassword subscriptions -h 127.0.0.1 > "db-backup/$backup_filename"
+      echo "Created migration: $backup_filename"
+    register: flyway_backup
+    changed_when: flyway_backup.rc == 0
+
+  - name: stop mysql
+    shell: service mysql stop > /tmp/mysqldown.txt
+    args:
+      creates: /tmp/mysqldown.txt

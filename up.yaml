@@ -1,0 +1,29 @@
+---
+- name: Start and maintain database
+  hosts: localhost
+  tasks:
+  # clear log
+  - name: Remove mysql.txt file (delete file)
+    file:
+      path: /tmp/mysqldown.txt
+      state: absent
+
+  - name: start mysql
+    shell: service mysql start > /tmp/mysql.txt
+    args:
+      creates: /tmp/mysql.txt
+
+  # check if migrations exists
+  - name: check for migration files
+    find:
+      paths: flyway/sql/
+      patterns: "*.sql"
+    register: migration_files
+
+  # restore data from migration file to mysql
+  - name: Apply Flyway migrations
+    shell: |
+      flyway -url=jdbc:mysql://localhost:3306/subscriptions -user=root -password=password -locations=filesystem:flyway/sql/ -baselineOnMigrate=true migrate
+    register: flyway_migrate
+    changed_when: flyway_migrate.rc == 0
+    when: migration_files.matched > 0
